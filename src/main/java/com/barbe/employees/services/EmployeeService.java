@@ -17,4 +17,7 @@ public interface EmployeeService
 
     void deleteEmployee(Long id);
 
+    void addEarnings(Employee employee, Double amount);
+
+    void resetDailyEarnings(Employee employee);
 }
