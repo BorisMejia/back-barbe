@@ -5,6 +5,7 @@ import com.barbe.employees.repositories.EmpleyeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,12 +42,16 @@ public class EmployeeServiceImpl implements EmployeeService
         empleyeeRepository.deleteById(id);
     }
     @Override
-    public void addEarnings(Employee employee, Double amount) {
-        if (amount != null && amount > 0) employee.setDailyEarnings(employee.getDailyEarnings() + amount);
+    public void addEarnings(Employee employee, Double amount) 
+    {
+        employee.addPayment(amount);
+        empleyeeRepository.save(employee);
     }
-    @Override
-    public void resetDailyEarnings(Employee employee) {
-        employee.setDailyEarnings(0.0);
+@Override
+    public void resetDailyEarnings(Employee employee)
+    {
+        employee.setPayments(new ArrayList<>());
+        empleyeeRepository.save(employee);
     }
 
 

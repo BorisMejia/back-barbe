@@ -29,6 +29,16 @@ public class EmployeeController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @PostMapping("/{id}/addEarnings")
+    public void addEarnings(@PathVariable Long id, @RequestParam Double amount) {
+        Optional<Employee> employee = employeeServiceImpl.getEmployeeById(id);
+        employee.ifPresent(emp -> employeeServiceImpl.addEarnings(emp, amount));
+    }
+    @PostMapping("/{id}/resetDailyEarnings")
+    public void resetDailyEarnings(@PathVariable Long id) {
+        Optional<Employee> employee = employeeServiceImpl.getEmployeeById(id);
+        employee.ifPresent(employeeServiceImpl::resetDailyEarnings);
+    }
     @PutMapping
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee)
     {
